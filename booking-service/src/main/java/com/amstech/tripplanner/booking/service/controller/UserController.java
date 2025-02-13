@@ -22,7 +22,6 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/signUp", consumes = "application/json", produces = "application/json")
-
 	public ResponseEntity<Object> signUp(@RequestBody String body) {
 		System.out.println("signUp" + body);
 		return new ResponseEntity<Object>(body, HttpStatus.OK);
