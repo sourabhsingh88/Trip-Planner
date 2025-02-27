@@ -16,18 +16,24 @@ public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
 
-	@Column(name="user_id")
-	private int userId;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="updated_at")
+	private Date updatedAt;
 
 	//bi-directional many-to-one association to Role
 	@ManyToOne
 	private Role role;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	private User user;
 
 	public UserRole() {
 	}
@@ -48,12 +54,12 @@ public class UserRole implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public Date getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public Role getRole() {
@@ -62,6 +68,14 @@ public class UserRole implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

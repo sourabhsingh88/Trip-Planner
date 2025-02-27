@@ -15,25 +15,22 @@ public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
-	//bi-directional many-to-one association to Accommodation
+	//bi-directional many-to-one association to ContactUs
 	@OneToMany(mappedBy="location")
-	private List<Accommodation> accommodations;
-
-	//bi-directional many-to-one association to Activite
-	@OneToMany(mappedBy="location")
-	private List<Activite> activites;
+	private List<ContactUs> contactUses;
 
 	//bi-directional many-to-one association to City
 	@ManyToOne
 	private City city;
 
-	//bi-directional many-to-one association to Trippackage
+	//bi-directional many-to-one association to Trip
 	@OneToMany(mappedBy="location")
-	private List<Trippackage> trippackages;
+	private List<Trip> trips;
 
 	//bi-directional many-to-one association to User
 	@OneToMany(mappedBy="location")
@@ -58,48 +55,26 @@ public class Location implements Serializable {
 		this.name = name;
 	}
 
-	public List<Accommodation> getAccommodations() {
-		return this.accommodations;
+	public List<ContactUs> getContactUses() {
+		return this.contactUses;
 	}
 
-	public void setAccommodations(List<Accommodation> accommodations) {
-		this.accommodations = accommodations;
+	public void setContactUses(List<ContactUs> contactUses) {
+		this.contactUses = contactUses;
 	}
 
-	public Accommodation addAccommodation(Accommodation accommodation) {
-		getAccommodations().add(accommodation);
-		accommodation.setLocation(this);
+	public ContactUs addContactUs(ContactUs contactUs) {
+		getContactUses().add(contactUs);
+		contactUs.setLocation(this);
 
-		return accommodation;
+		return contactUs;
 	}
 
-	public Accommodation removeAccommodation(Accommodation accommodation) {
-		getAccommodations().remove(accommodation);
-		accommodation.setLocation(null);
+	public ContactUs removeContactUs(ContactUs contactUs) {
+		getContactUses().remove(contactUs);
+		contactUs.setLocation(null);
 
-		return accommodation;
-	}
-
-	public List<Activite> getActivites() {
-		return this.activites;
-	}
-
-	public void setActivites(List<Activite> activites) {
-		this.activites = activites;
-	}
-
-	public Activite addActivite(Activite activite) {
-		getActivites().add(activite);
-		activite.setLocation(this);
-
-		return activite;
-	}
-
-	public Activite removeActivite(Activite activite) {
-		getActivites().remove(activite);
-		activite.setLocation(null);
-
-		return activite;
+		return contactUs;
 	}
 
 	public City getCity() {
@@ -110,26 +85,26 @@ public class Location implements Serializable {
 		this.city = city;
 	}
 
-	public List<Trippackage> getTrippackages() {
-		return this.trippackages;
+	public List<Trip> getTrips() {
+		return this.trips;
 	}
 
-	public void setTrippackages(List<Trippackage> trippackages) {
-		this.trippackages = trippackages;
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
 	}
 
-	public Trippackage addTrippackage(Trippackage trippackage) {
-		getTrippackages().add(trippackage);
-		trippackage.setLocation(this);
+	public Trip addTrip(Trip trip) {
+		getTrips().add(trip);
+		trip.setLocation(this);
 
-		return trippackage;
+		return trip;
 	}
 
-	public Trippackage removeTrippackage(Trippackage trippackage) {
-		getTrippackages().remove(trippackage);
-		trippackage.setLocation(null);
+	public Trip removeTrip(Trip trip) {
+		getTrips().remove(trip);
+		trip.setLocation(null);
 
-		return trippackage;
+		return trip;
 	}
 
 	public List<User> getUsers() {

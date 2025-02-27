@@ -15,6 +15,7 @@ public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String description;
@@ -24,6 +25,18 @@ public class Status implements Serializable {
 	//bi-directional many-to-one association to Booking
 	@OneToMany(mappedBy="status")
 	private List<Booking> bookings;
+
+	//bi-directional many-to-one association to Notification
+	@OneToMany(mappedBy="status")
+	private List<Notification> notifications;
+
+	//bi-directional many-to-one association to Trip
+	@OneToMany(mappedBy="status")
+	private List<Trip> trips;
+
+	//bi-directional many-to-one association to TripPlanner
+	@OneToMany(mappedBy="status")
+	private List<TripPlanner> tripPlanners;
 
 	public Status() {
 	}
@@ -72,6 +85,72 @@ public class Status implements Serializable {
 		booking.setStatus(null);
 
 		return booking;
+	}
+
+	public List<Notification> getNotifications() {
+		return this.notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public Notification addNotification(Notification notification) {
+		getNotifications().add(notification);
+		notification.setStatus(this);
+
+		return notification;
+	}
+
+	public Notification removeNotification(Notification notification) {
+		getNotifications().remove(notification);
+		notification.setStatus(null);
+
+		return notification;
+	}
+
+	public List<Trip> getTrips() {
+		return this.trips;
+	}
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
+	public Trip addTrip(Trip trip) {
+		getTrips().add(trip);
+		trip.setStatus(this);
+
+		return trip;
+	}
+
+	public Trip removeTrip(Trip trip) {
+		getTrips().remove(trip);
+		trip.setStatus(null);
+
+		return trip;
+	}
+
+	public List<TripPlanner> getTripPlanners() {
+		return this.tripPlanners;
+	}
+
+	public void setTripPlanners(List<TripPlanner> tripPlanners) {
+		this.tripPlanners = tripPlanners;
+	}
+
+	public TripPlanner addTripPlanner(TripPlanner tripPlanner) {
+		getTripPlanners().add(tripPlanner);
+		tripPlanner.setStatus(this);
+
+		return tripPlanner;
+	}
+
+	public TripPlanner removeTripPlanner(TripPlanner tripPlanner) {
+		getTripPlanners().remove(tripPlanner);
+		tripPlanner.setStatus(null);
+
+		return tripPlanner;
 	}
 
 }

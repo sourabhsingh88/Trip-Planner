@@ -5,37 +5,35 @@ import jakarta.persistence.*;
 
 
 /**
- * The persistent class for the accommodation database table.
+ * The persistent class for the contact_us database table.
  * 
  */
 @Entity
-@NamedQuery(name="Accommodation.findAll", query="SELECT a FROM Accommodation a")
-public class Accommodation implements Serializable {
+@Table(name="contact_us")
+@NamedQuery(name="ContactUs.findAll", query="SELECT c FROM ContactUs c")
+public class ContactUs implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private int capacity;
-
 	@Lob
 	private String description;
 
 	private String email;
 
-	private String name;
+	@Column(name="lmg_url")
+	private String lmgUrl;
 
 	@Column(name="phone_number")
 	private String phoneNumber;
 
-	private String types;
-
-	//bi-directional many-to-one association to Trip
+	//bi-directional many-to-one association to Location
 	@ManyToOne
-	private Trip trip;
+	private Location location;
 
-	public Accommodation() {
+	public ContactUs() {
 	}
 
 	public int getId() {
@@ -44,14 +42,6 @@ public class Accommodation implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getCapacity() {
-		return this.capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
 	}
 
 	public String getDescription() {
@@ -70,12 +60,12 @@ public class Accommodation implements Serializable {
 		this.email = email;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getLmgUrl() {
+		return this.lmgUrl;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLmgUrl(String lmgUrl) {
+		this.lmgUrl = lmgUrl;
 	}
 
 	public String getPhoneNumber() {
@@ -86,20 +76,12 @@ public class Accommodation implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getTypes() {
-		return this.types;
+	public Location getLocation() {
+		return this.location;
 	}
 
-	public void setTypes(String types) {
-		this.types = types;
-	}
-
-	public Trip getTrip() {
-		return this.trip;
-	}
-
-	public void setTrip(Trip trip) {
-		this.trip = trip;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 }

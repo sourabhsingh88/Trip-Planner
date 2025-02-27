@@ -3,7 +3,6 @@ package com.amstech.tripplanner.booking.service.entity;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -17,27 +16,28 @@ public class Booking implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_at")
-	private Date createAt;
+	@Column(name="book_at")
+	private Date bookAt;
 
-	@Column(name="user_id")
-	private int userId;
-
-	//bi-directional many-to-one association to PackageInclude
-	@ManyToOne
-	@JoinColumn(name="package_include_id")
-	private PackageInclude packageInclude;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="updated_at")
+	private Date updatedAt;
 
 	//bi-directional many-to-one association to Status
 	@ManyToOne
 	private Status status;
 
-	//bi-directional many-to-one association to History
-	@OneToMany(mappedBy="booking")
-	private List<History> histories;
+	//bi-directional many-to-one association to Trip
+	@ManyToOne
+	private Trip trip;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	private User user;
 
 	public Booking() {
 	}
@@ -50,28 +50,20 @@ public class Booking implements Serializable {
 		this.id = id;
 	}
 
-	public Date getCreateAt() {
-		return this.createAt;
+	public Date getBookAt() {
+		return this.bookAt;
 	}
 
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	public void setBookAt(Date bookAt) {
+		this.bookAt = bookAt;
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public Date getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public PackageInclude getPackageInclude() {
-		return this.packageInclude;
-	}
-
-	public void setPackageInclude(PackageInclude packageInclude) {
-		this.packageInclude = packageInclude;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public Status getStatus() {
@@ -82,26 +74,20 @@ public class Booking implements Serializable {
 		this.status = status;
 	}
 
-	public List<History> getHistories() {
-		return this.histories;
+	public Trip getTrip() {
+		return this.trip;
 	}
 
-	public void setHistories(List<History> histories) {
-		this.histories = histories;
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
-	public History addHistory(History history) {
-		getHistories().add(history);
-		history.setBooking(this);
-
-		return history;
+	public User getUser() {
+		return this.user;
 	}
 
-	public History removeHistory(History history) {
-		getHistories().remove(history);
-		history.setBooking(null);
-
-		return history;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

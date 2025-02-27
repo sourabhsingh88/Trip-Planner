@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 
 
 /**
- * The persistent class for the transport database table.
+ * The persistent class for the trip_banner database table.
  * 
  */
 @Entity
-@NamedQuery(name="Transport.findAll", query="SELECT t FROM Transport t")
-public class Transport implements Serializable {
+@Table(name="trip_banner")
+@NamedQuery(name="TripBanner.findAll", query="SELECT t FROM TripBanner t")
+public class TripBanner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,13 +20,13 @@ public class Transport implements Serializable {
 
 	private String description;
 
-	private String name;
+	private String url;
 
 	//bi-directional many-to-one association to Trip
 	@ManyToOne
 	private Trip trip;
 
-	public Transport() {
+	public TripBanner() {
 	}
 
 	public int getId() {
@@ -44,12 +45,12 @@ public class Transport implements Serializable {
 		this.description = description;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getUrl() {
+		return this.url;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Trip getTrip() {

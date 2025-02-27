@@ -2,21 +2,27 @@ package com.amstech.tripplanner.booking.service.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import java.util.Date;
 
 
 /**
- * The persistent class for the transport database table.
+ * The persistent class for the activity database table.
  * 
  */
 @Entity
-@NamedQuery(name="Transport.findAll", query="SELECT t FROM Transport t")
-public class Transport implements Serializable {
+@NamedQuery(name="Activity.findAll", query="SELECT a FROM Activity a")
+public class Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="activity_date")
+	private Date activityDate;
+
+	@Lob
 	private String description;
 
 	private String name;
@@ -25,7 +31,7 @@ public class Transport implements Serializable {
 	@ManyToOne
 	private Trip trip;
 
-	public Transport() {
+	public Activity() {
 	}
 
 	public int getId() {
@@ -34,6 +40,14 @@ public class Transport implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getActivityDate() {
+		return this.activityDate;
+	}
+
+	public void setActivityDate(Date activityDate) {
+		this.activityDate = activityDate;
 	}
 
 	public String getDescription() {

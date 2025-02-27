@@ -15,6 +15,7 @@ public class Feedback implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -25,13 +26,13 @@ public class Feedback implements Serializable {
 
 	private String review;
 
-	@Column(name="user_id")
-	private int userId;
-
-	//bi-directional many-to-one association to PackageInclude
+	//bi-directional many-to-one association to Trip
 	@ManyToOne
-	@JoinColumn(name="package_include_id")
-	private PackageInclude packageInclude;
+	private Trip trip;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	private User user;
 
 	public Feedback() {
 	}
@@ -68,20 +69,20 @@ public class Feedback implements Serializable {
 		this.review = review;
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public Trip getTrip() {
+		return this.trip;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
-	public PackageInclude getPackageInclude() {
-		return this.packageInclude;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setPackageInclude(PackageInclude packageInclude) {
-		this.packageInclude = packageInclude;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

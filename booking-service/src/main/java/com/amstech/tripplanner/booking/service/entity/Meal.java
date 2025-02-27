@@ -2,7 +2,6 @@ package com.amstech.tripplanner.booking.service.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.util.List;
 
 
 /**
@@ -15,6 +14,7 @@ public class Meal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Lob
@@ -22,14 +22,9 @@ public class Meal implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Trippackage
+	//bi-directional many-to-one association to Trip
 	@ManyToOne
-	@JoinColumn(name="package_id")
-	private Trippackage trippackage;
-
-	//bi-directional many-to-one association to PackageInclude
-	@OneToMany(mappedBy="meal")
-	private List<PackageInclude> packageIncludes;
+	private Trip trip;
 
 	public Meal() {
 	}
@@ -58,34 +53,12 @@ public class Meal implements Serializable {
 		this.name = name;
 	}
 
-	public Trippackage getTrippackage() {
-		return this.trippackage;
+	public Trip getTrip() {
+		return this.trip;
 	}
 
-	public void setTrippackage(Trippackage trippackage) {
-		this.trippackage = trippackage;
-	}
-
-	public List<PackageInclude> getPackageIncludes() {
-		return this.packageIncludes;
-	}
-
-	public void setPackageIncludes(List<PackageInclude> packageIncludes) {
-		this.packageIncludes = packageIncludes;
-	}
-
-	public PackageInclude addPackageInclude(PackageInclude packageInclude) {
-		getPackageIncludes().add(packageInclude);
-		packageInclude.setMeal(this);
-
-		return packageInclude;
-	}
-
-	public PackageInclude removePackageInclude(PackageInclude packageInclude) {
-		getPackageIncludes().remove(packageInclude);
-		packageInclude.setMeal(null);
-
-		return packageInclude;
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
 }
