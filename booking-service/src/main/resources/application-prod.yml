@@ -3,7 +3,7 @@ spring:
   datasource:
     platform: mysql
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/tripplanner
+    url: jdbc:mysql://localhost:3306/trip_planner
     username: root
     password: root
     driver-class: com.mysql.cj.jdbc.Driver
